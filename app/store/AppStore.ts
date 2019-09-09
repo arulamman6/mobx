@@ -16,14 +16,14 @@ export default class AppStore {
     }
 
     async fetchDeals() {
-        dealService.searchData(this.searchTerm.get()).then(data => {
+        dealService.getDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
                 this.isLoading = false
                 this.deals = data
             })
         })
     }
-    /*
+    
     @action setSearchTerm(searchStr: string) {
         this.searchTerm.set(searchStr)
     }
@@ -32,13 +32,13 @@ export default class AppStore {
     setCurrentDeal(dealId: string) {
         this.currentDealId = dealId
     }
-
+    
     @action
     unsetCurrentDeal() {
         this.currentDealId = null
     }
 
     @computed get currentDeal() {
-        return this.deals.find((deal) => deal.key === this.currentDealId)
-    }*/
+        return this.deals.find((deal) => deal.id === this.currentDealId)
+    }
 }
