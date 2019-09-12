@@ -14,7 +14,13 @@ class DealService extends CommonService<Deal> {
             if (!response.ok) {
                 throw new Error("cannot get data")
             }
-            return response.json()
+            let responseJson = await response.json();
+            const {
+                contentListMap: { OFFERS },
+            } = responseJson;
+            console.log('response'+ OFFERS)
+            return OFFERS.FeaturedOffers;
+            //return response.json()
         }
         catch (error) {
             throw error
