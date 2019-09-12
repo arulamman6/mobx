@@ -18,10 +18,10 @@ class DealItem extends React.Component<Props> {
     return (
       <TouchableOpacity style={styles.deal} onPress={this.handlePress}>
         <View style={styles.info}>
-          <Text style={styles.title}>{deal.id}</Text>
+          <Text style={styles.title}>{deal.onId}</Text>
           <View style={styles.footer}>
-            <Text style={styles.cause}>{deal.employee_name}</Text>
-            <Text style={styles.price}>{deal.employee_salary}</Text>
+            <Text style={styles.cause}>{deal.onDealTitle}</Text>
+            <Text style={styles.price}>{deal.onSupplierName}</Text>
           </View>
         </View>
       </TouchableOpacity>

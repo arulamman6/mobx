@@ -5,10 +5,10 @@ import { apiHost } from '../../util/util'
 class DealService extends CommonService<Deal> {
     constructor() {
         super()
-        this.rootURL = apiHost + "api/v1/employees"
+        this.rootURL = apiHost + "api/getDeals?bankId=RAK&channelId=MB&mode=HTML&userSegment=featured&pageContext=Offers"
     }
 
-    async getDealsData(search: String): Promise<Deal[]> {
+    async getFeaturedDealsData(search: String): Promise<Deal[]> {
         try {
             const response = await fetch(this.rootURL)
             if (!response.ok) {

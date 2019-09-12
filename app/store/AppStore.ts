@@ -16,7 +16,7 @@ export default class AppStore {
     }
 
     async fetchDeals() {
-        dealService.getDealsData(this.searchTerm.get()).then(data => {
+        dealService.getFeaturedDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
                 this.isLoading = false
                 this.deals = data
@@ -39,6 +39,6 @@ export default class AppStore {
     }
 
     @computed get currentDeal() {
-        return this.deals.find((deal) => deal.id === this.currentDealId)
+        return this.deals.find((deal) => deal.onId === this.currentDealId)
     }
 }
