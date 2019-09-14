@@ -2,10 +2,13 @@ import React from 'react'
 import {
   View,
   StyleSheet,
+  Text,
 } from 'react-native'
 import { observer, inject } from "mobx-react"
-import DealList from './DealList'
+import DealList from './deals/DealList'
+import NearByDealsList from './nearbydeals/NearByDealsList'
 import AppStore from '../store/AppStore'
+import NearByDealsItem from './nearbydeals/NearByDealsItem'
 
 
 export interface Props {
@@ -34,23 +37,41 @@ class App extends React.Component<Props> {
     const appStore = this.props.appStore
     return (
       <View style={styles.main}>
-        <DealList deals={appStore.deals} onItemPress={this.setCurrentDeal} />
-      </View>
+        <View style={styles.container}>
+          <DealList deals={appStore.deals} onItemPress={this.setCurrentDeal} />
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.textinfo}>NEAR BY DEALS</Text>
+            <NearByDealsList deals={appStore.nearByDeals} onItemPress={this.setCurrentDeal} />
+        </View>
+       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 0.5,
+    justifyContent: 'flex-start'//,
+   // alignItems: 'row',
   },
   main: {
+    flex: 1,
     marginTop: 30,
   },
   header: {
     fontSize: 40,
+  },
+  textinfo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 10,
+    backgroundColor: '#bbb',
+    borderColor: '#bbb',
+    borderWidth: 1,
+    borderTopWidth: 0,
+    justifyContent: 'center',//,
+    alignItems: 'center',
   },
 })
 

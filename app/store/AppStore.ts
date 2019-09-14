@@ -7,6 +7,7 @@ export default class AppStore {
     @observable isFailure: boolean = false
     @observable searchTerm: IObservableValue<string> = observable.box("")
     @observable deals: Deals = []
+    @observable nearByDeals: Deals = []
     @observable currentDealId: string | null = null
 
     constructor() {
@@ -24,6 +25,15 @@ export default class AppStore {
         })
     }
     
+    async fetchNearByDeals() {
+        dealService.getNearByDealsData(this.searchTerm.get()).then(data => {
+            runInAction(() => {
+                this.isLoading = false
+                this.nearByDeals = data
+            })
+        })
+    }
+
     @action setSearchTerm(searchStr: string) {
         this.searchTerm.set(searchStr)
     }
