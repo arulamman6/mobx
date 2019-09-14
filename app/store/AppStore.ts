@@ -28,12 +28,15 @@ export default class AppStore {
     }
     
     async fetchNearByDeals() {
-        if (getNearByDeals.length > 0) {
-            this.isLoading = false
-            //this.nearByDeals = (Deals[])getNearByDeals()
-            //return
-       }
-
+        getNearByDeals().then(data => {
+            console.log("Data Length Size == " + data.length)
+            if (data.length > 0) {
+                this.isLoading = false
+                this.nearByDeals = data
+                return
+            }
+        })
+       
         dealService.getNearByDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
                 storeData(data)

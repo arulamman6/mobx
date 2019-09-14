@@ -1,4 +1,6 @@
 import {AsyncStorage} from 'react-native'
+import { any } from 'prop-types';
+import { Deals } from '../models/Deal'
 
 export const storeData = async (value:any) => {
     try {
@@ -9,16 +11,17 @@ export const storeData = async (value:any) => {
   };
   
     
-  export const getNearByDeals = async() => {
+  export const getNearByDeals = async():Promise<Deals> => {
     try {
         const retrievedItem =  await AsyncStorage.getItem('dealsKey');
         if (retrievedItem !== null) {
             const item = JSON.parse(retrievedItem);
-            return item;
+            let myArr:Deals = [item];
+            return myArr;
         }
       } catch (error) {
         console.log(error.message);
       }
-      return
+      return []
   }
 
