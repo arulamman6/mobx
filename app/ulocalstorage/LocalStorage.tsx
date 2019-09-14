@@ -1,9 +1,8 @@
-import Deal from "../models/Deal";
 import {AsyncStorage} from 'react-native'
 
 export const saveData = (value: string) => {
     try {
-        AsyncStorage.setItem("myKey", value)
+        AsyncStorage.setItem("dealsKey", value)
     } catch (error) {
         
     }
@@ -11,7 +10,7 @@ export const saveData = (value: string) => {
 
   export const getNearByDeals = () => {
       try {
-        AsyncStorage.getItem("myKey").then((value) => {
+        AsyncStorage.getItem("dealsKey").then((value) => {
             return value;
          })
       } catch (error) {

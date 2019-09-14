@@ -8,8 +8,6 @@ import { observer, inject } from "mobx-react"
 import DealList from './deals/DealList'
 import NearByDealsList from './nearbydeals/NearByDealsList'
 import AppStore from '../store/AppStore'
-import NearByDealsItem from './nearbydeals/NearByDealsItem'
-
 
 export interface Props {
   appStore: AppStore

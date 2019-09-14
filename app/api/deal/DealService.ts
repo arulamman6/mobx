@@ -20,7 +20,6 @@ class DealService extends CommonService<Deal> {
             } = responseJson;
             console.log('response'+ OFFERS)
             return OFFERS.FeaturedOffers;
-            //return response.json()
         }
         catch (error) {
             throw error
