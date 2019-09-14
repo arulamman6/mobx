@@ -1,7 +1,7 @@
 import { observable, action, runInAction, computed, IObservableValue } from 'mobx'
 import { Deals } from '../models/Deal'
 import { dealService } from '../api/deal/DealService'
-import { saveData, getNearByDeals } from '../ulocalstorage/LocalStorage'
+import { storeData, getNearByDeals } from '../ulocalstorage/LocalStorage'
 
 export default class AppStore {
     @observable isLoading: boolean = true
@@ -36,7 +36,7 @@ export default class AppStore {
 
         dealService.getNearByDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
-                //saveData(data)
+                storeData(data)
                 this.isLoading = false
                 this.nearByDeals = data
             })

@@ -1,13 +1,15 @@
 import {AsyncStorage} from 'react-native'
+import { Deals } from '../models/Deal'
 
-export const saveData = (value: string) => {
+export const storeData = async (value:any) => {
     try {
-        AsyncStorage.setItem("dealsKey", value)
+      await AsyncStorage.setItem('dealsKey', JSON.stringify(value));
     } catch (error) {
-        
+      // Error saving data
     }
-  }
-
+  };
+  
+    
   export const getNearByDeals = () => {
       try {
         AsyncStorage.getItem("dealsKey").then((value) => {
