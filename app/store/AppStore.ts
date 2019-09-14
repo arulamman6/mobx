@@ -28,11 +28,11 @@ export default class AppStore {
     }
     
     async fetchNearByDeals() {
-        //if (getNearByDeals.length > 0) {
-            //this.isLoading = false
-            //this.nearByDeals = getNearByDeals()
+        if (getNearByDeals.length > 0) {
+            this.isLoading = false
+            //this.nearByDeals = (Deals[])getNearByDeals()
             //return
-       //}
+       }
 
         dealService.getNearByDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
