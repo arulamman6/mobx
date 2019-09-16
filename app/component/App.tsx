@@ -7,13 +7,17 @@ import {
 import { observer, inject } from "mobx-react"
 import DealList from './deals/DealList'
 import NearByDealsList from './nearbydeals/NearByDealsList'
-import AppStore from '../store/AppStore'
+import FeaturedDealStore from '../store/FeaturedDealStore'
+import NearByDealStore from '../store/NearByDealStore'
 
 export interface Props {
-  appStore: AppStore
+  featuredDealStore: FeaturedDealStore,
+  nearByDealStore: NearByDealStore
 }
 
-@inject("appStore") @observer
+
+@inject("featuredDealStore") @observer
+@inject("nearByDealStore") @observer
 class App extends React.Component<Props> {
   /*
   searchDeals = (searchTerm: string) => {
@@ -32,15 +36,16 @@ class App extends React.Component<Props> {
   */
 
   render() {
-    const appStore = this.props.appStore
+    const featuredDealStore = this.props.featuredDealStore
+    const nearByDealStore = this.props.nearByDealStore
     return (
       <View style={styles.main}>
         <View style={styles.container}>
-          <DealList deals={appStore.deals} onItemPress={this.setCurrentDeal} />
+          <DealList deals={featuredDealStore.deals} onItemPress={this.setCurrentDeal} />
         </View>
         <View style={styles.container}>
           <Text style={styles.textinfo}>NEAR BY DEALS</Text>
-            <NearByDealsList deals={appStore.nearByDeals} onItemPress={this.setCurrentDeal} />
+            <NearByDealsList deals={nearByDealStore.nearByDeal} onItemPress={this.setCurrentDeal} />
         </View>
        </View>
     )
