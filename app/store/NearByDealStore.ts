@@ -23,7 +23,9 @@ export default class NearByDealStore {
             console.log("Data Length Size == " + data.length)
             if (data.length > 0) {
                 this.isLoading = false
-                this.nearByDeal = this.getNearByDealsOrderByNameWithLocation(data)
+                this.getNearByDealsOrderByNameWithLocation(data).then(({completeOfferList, sortedOffersWithoutOnlineStore}) =>{
+                    this.nearByDeal = sortedOffersWithoutOnlineStore
+                })
                 return
             }
         })
@@ -31,15 +33,15 @@ export default class NearByDealStore {
             runInAction(() => {
                 storeData(data)
                 this.isLoading = false
-                this.nearByDeal = this.getNearByDealsOrderByNameWithLocation(data)
+                this.getNearByDealsOrderByNameWithLocation(data).then(({completeOfferList, sortedOffersWithoutOnlineStore}) =>{
+                    this.nearByDeal = sortedOffersWithoutOnlineStore
+                })
             })
         })
     }
 
-    
-    getNearByDealsOrderByNameWithLocation(nearByDealList: NearByDeals): NearByDeals{
-          
-        
+
+    getNearByDealsOrderByNameWithLocation = async (nearByDealList: NearByDeals) => {
         let postion: GeoPosition = {
             coords: DEFAULT_CORDS,
             timestamp: new Date()
@@ -58,12 +60,10 @@ export default class NearByDealStore {
         );
       
         //Remove invalid Items
-        const sortedOffersWithoutOnlineStore = offerlistWithDistance.sort(
+        const sortedOffersWithoutOnlineStore : NearByDeals = offerlistWithDistance.sort(
           (a, b) => a.distance - b.distance
         );
         return { sortedOffersWithoutOnlineStore, completeOfferList: nearByDealList };
-    } 
-    
-    
+    }
   
 }
