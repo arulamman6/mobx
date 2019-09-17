@@ -7,8 +7,8 @@ import {
 import { observer, inject } from "mobx-react"
 import DealList from './deals/DealList'
 import NearByDealsList from './nearbydeals/NearByDealsList'
-import FeaturedDealStore from '../store/FeaturedDealStore'
-import NearByDealStore from '../store/NearByDealStore'
+import FeaturedDealStore from '../store/Home/FeaturedDealStore'
+import NearByDealStore from '../store/Home/NearByDealStore'
 
 export interface Props {
   featuredDealStore: FeaturedDealStore,

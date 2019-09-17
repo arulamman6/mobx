@@ -1,11 +1,11 @@
 
 import CommonModel from "./CommonModel"
 
-export declare type Deals = Deal[]
+export declare type FeaturedDeals = FeaturedDeal[]
 
-export declare type UDeal = Deal | undefined
+export declare type FeaturedUDeal = FeaturedDeal | undefined
 
-export default interface Deal extends CommonModel {
+export default interface FeaturedDeal extends CommonModel {
     onThumbNail: string
     onCityName: string
     SeatingCapacity: string

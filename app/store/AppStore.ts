@@ -1,13 +1,13 @@
 import { observable, action, runInAction, computed, IObservableValue } from 'mobx'
-import { Deals } from '../models/Deal'
-import { dealService } from '../api/deal/DealService'
+import { FeaturedDeals } from '../models/FeaturedDeal'
+import { dealService } from '../api/featuredDeal/FeaturedDealService'
 
 export default class AppStore {
     @observable isLoading: boolean = true
     @observable isFailure: boolean = false
     @observable searchTerm: IObservableValue<string> = observable.box("")
-    @observable deals: Deals = []
-    @observable nearByDeals: Deals = []
+    @observable FeaturedDeals: FeaturedDeals = []
+    @observable nearByDeals: FeaturedDeals = []
     @observable currentDealId: string | null = null
 
     constructor() {
@@ -20,7 +20,7 @@ export default class AppStore {
         dealService.getFeaturedDealsData(this.searchTerm.get()).then(data => {
             runInAction(() => {
                 this.isLoading = false
-                this.deals = data
+                this.FeaturedDeals = data
             })
         })
     }
@@ -41,6 +41,6 @@ export default class AppStore {
     }
 
     @computed get currentDeal() {
-        return this.deals.find((deal) => deal.onId === this.currentDealId)
+        return this.FeaturedDeals.find((deal) => deal.onId === this.currentDealId)
     }
 }

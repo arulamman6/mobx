@@ -1,6 +1,5 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { priceDisplay } from '../../util/util'
 
 export interface Props {
     deal: any,

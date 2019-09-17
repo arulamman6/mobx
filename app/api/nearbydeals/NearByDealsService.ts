@@ -1,7 +1,7 @@
 import CommonService from './../CommonService'
 import NearByDeals from '../../models/NearByDeal'
 
-import { apiHost, nearByDeals } from '../../util/util'
+import { apiHost, nearByDeals } from '../../util/ServerConfig'
 
 class NearByDealService extends CommonService<NearByDeals> {
     constructor() {

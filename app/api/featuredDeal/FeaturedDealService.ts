@@ -1,9 +1,9 @@
-import CommonService from './../CommonService'
-import Deal from '../../models/Deal'
+import CommonService from '../CommonService'
+import Deal from '../../models/FeaturedDeal'
 
-import { apiHost, featuredDeals, nearByDeals } from '../../util/util'
+import { apiHost, featuredDeals } from '../../util/ServerConfig'
 
-class DealService extends CommonService<Deal> {
+class FeaturedDealService extends CommonService<Deal> {
     constructor() {
         super()
         this.rootURL = apiHost 
@@ -29,4 +29,4 @@ class DealService extends CommonService<Deal> {
     
 }
 
-export const dealService = new DealService() 
+export const dealService = new FeaturedDealService() 

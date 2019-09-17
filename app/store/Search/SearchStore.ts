@@ -1,7 +1,7 @@
 import { observable, action, runInAction, computed, IObservableValue } from 'mobx'
-import { nearByDealService } from '../api/nearbydeals/NearByDealsService'
-import { storeData, getNearByDeals } from '../ulocalstorage/LocalStorage'
-import { NearByDeals } from '../models/NearByDeal'
+import { nearByDealService } from '../../api/nearbydeals/NearByDealsService'
+import { storeData, getNearByDeals } from '../../ulocalstorage/LocalStorage'
+import { NearByDeals } from '../../models/NearByDeal'
 
 export default class SearchStore {
     @observable isLoading: boolean = true

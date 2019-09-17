@@ -1,6 +1,6 @@
 import AppStore from './AppStore'
-import FeaturedDealStore from '../store/FeaturedDealStore'
-import NearByDealStore from '../store/NearByDealStore'
+import FeaturedDealStore from './Home/FeaturedDealStore'
+import NearByDealStore from './Home/NearByDealStore'
 
 export default {
   appStore: new AppStore(),

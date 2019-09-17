@@ -1,9 +1,11 @@
 import { observable, action, runInAction, computed, IObservableValue } from 'mobx'
-import { nearByDealService } from '../api/nearbydeals/NearByDealsService'
-import { storeData, getNearByDeals } from '../ulocalstorage/LocalStorage'
-import { NearByDeals } from '../models/NearByDeal'
-import { getOffersWithoutOnlineStore, Location, GeoPosition, getLatLongFromPosition, calculateDistanceFromCurrentLocation} from '../util/StoreUtils'
-import { DEFAULT_CORDS } from '../util/util'
+import { nearByDealService } from '../../api/nearbydeals/NearByDealsService'
+import { storeData, getNearByDeals } from '../../ulocalstorage/LocalStorage'
+import { NearByDeals } from '../../models/NearByDeal'
+import Location from '../../models/Locations/Location'
+import GeoPosition from '../../models/Locations/GeoPosition'
+import { getOffersWithoutOnlineStore, calculateAndApplyDistance} from '../../util/DealsUtils'
+import { DEFAULT_CORDS , getLatLongFromPosition} from '../../util/LocationUtil'
 
 export default class NearByDealStore {
     @observable isLoading: boolean = true
@@ -54,7 +56,7 @@ export default class NearByDealStore {
         //change the key name
         const offersWithoutOnlineStore = getOffersWithoutOnlineStore(nearByDealList);
       
-        const offerlistWithDistance = calculateDistanceFromCurrentLocation(
+        const offerlistWithDistance = calculateAndApplyDistance(
           offersWithoutOnlineStore,
           currentLocation
         );

@@ -1,12 +1,12 @@
 import { observable, runInAction, IObservableValue } from 'mobx'
-import { Deals } from '../models/Deal'
-import { dealService } from '../api/deal/DealService'
+import { FeaturedDeals } from '../../models/FeaturedDeal'
+import { dealService } from '../../api/featuredDeal/FeaturedDealService'
 
 export default class FeaturedDealStore {
     @observable isLoading: boolean = true
     @observable isFailure: boolean = false
     @observable featuredDealTerm: IObservableValue<string> = observable.box("")
-    @observable deals: Deals = []
+    @observable deals: FeaturedDeals = []
 
     constructor() {
         this.featuredDealTerm.observe(() => {

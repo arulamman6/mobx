@@ -1,14 +1,3 @@
-export const priceDisplay = (priceInCents: number) => {
-    return `$${priceInCents/100}`
-  }
-  
-  /**
- * Dubai Mall / Burj Khalifa
- */
-export const DEFAULT_CORDS = {
-  latitude: 25.1972,
-  longitude: 55.274283,
-};
 
 
   export const apiHost = 'https://revamp.rakbank.ae/'
