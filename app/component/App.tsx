@@ -44,6 +44,10 @@ class App extends React.Component<Props> {
           <DealList deals={featuredDealStore.deals} onItemPress={this.setCurrentDeal} />
         </View>
         <View style={styles.container}>
+          <Text style={styles.textinfo}>MAP Marker</Text>
+            <NearByDealsList deals={nearByDealStore.nearByDeal} onItemPress={this.setCurrentDeal} />
+        </View>
+        <View style={styles.container}>
           <Text style={styles.textinfo}>NEAR BY DEALS</Text>
             <NearByDealsList deals={nearByDealStore.nearByDeal} onItemPress={this.setCurrentDeal} />
         </View>
@@ -54,7 +58,7 @@ class App extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5,
+    flex: 0.33,
     justifyContent: 'flex-start'//,
    // alignItems: 'row',
   },

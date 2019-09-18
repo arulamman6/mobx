@@ -11,7 +11,7 @@
     "@babel/plugin-proposal-decorators": "^7.4.0",
     "@types/react-native": "^0.60.13",
     "mobx": "^5.13.0",
-    "mobx-react": "5.4.4",
+    "mobx-react": "^5.4.4",
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-maps": "^0.25.0"
