@@ -1,3 +1,8 @@
+import {
+  Animated,
+} from 'react-native';
+import { Region } from 'react-native-maps';
+
 import Location from '../models/Locations/Location'
 import GeoPosition from '../models/Locations/GeoPosition'
 
@@ -11,6 +16,40 @@ import GeoPosition from '../models/Locations/GeoPosition'
 export const DEFAULT_CORDS = {
   latitude: 25.1972,
   longitude: 55.274283,
+};
+
+export type MapMarkerItem = {
+  cord: Location;
+  offerKey: string;
+};
+
+export type MapViewState = {
+  userLocation: Location;
+  markerLocations: MapMarkerItem[];
+  mapViewDelta?: {
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+  selectedMarker?: string;
+  mapViewOpacity?: Animated.Value;
+};
+
+export type BasicOfferItem = {
+  onOfferName: string;
+  onDealTitle: string;
+  onCityName: string;
+  onAreaName: string;
+  onExpiry: string;
+  onLatitude: string | number;
+  onLangitude: string | number;
+  onTelephone: string;
+  onCategoryName: string;
+  OnDescription: string;
+};
+
+export type OfferItem = BasicOfferItem & {
+  distance: number;
+  isOnlineStore?: boolean;
 };
 
 export function getDistance(locationA: Location, locationB: Location) {
@@ -49,4 +88,96 @@ export const getLatLongFromPosition = (position: GeoPosition): Location => {
   }
 
   return latLong;
+};
+
+export const getTopTenMarkerWithZoomLevel = (
+  offers: OfferItem[],
+  userLocation: Location
+): MapViewState => {
+  let topTenOffers = offers.slice(0, 10);
+
+  let otherOffers = offers.slice(10, 35);
+
+  const topTenMarkerLocations: MapMarkerItem[] = topTenOffers.map(
+    (offer: OfferItem) => {
+      let cord: Location = {
+        latitude: <number>offer.onLatitude,
+        longitude: <number>offer.onLangitude,
+      };
+      let offerKey: string = offer.onOfferName;
+      return { cord, offerKey };
+    }
+  );
+
+  const otherMarkerLocations: MapMarkerItem[] = otherOffers.map(
+    (offer: OfferItem) => {
+      let cord: Location = {
+        latitude: <number>offer.onLatitude,
+        longitude: <number>offer.onLangitude,
+      };
+      let offerKey: string = offer.onOfferName;
+      return { cord, offerKey };
+    }
+  );
+
+  const markerLocations: MapMarkerItem[] = [
+    ...topTenMarkerLocations,
+    ...otherMarkerLocations,
+  ];
+
+  const { latitudeDelta, longitudeDelta } = calculateMapViewDelta(
+    topTenMarkerLocations
+  );
+  return {
+    userLocation,
+    markerLocations,
+    mapViewDelta: { latitudeDelta, longitudeDelta },
+  };
+};
+
+
+export const calculateMapViewDelta = function(
+  markerItems: MapMarkerItem[],
+  currentLocation?: Location
+): Region {
+  let minX: number, maxX: number, minY: number, maxY: number;
+
+  if (currentLocation) {
+    markerItems.push({
+      cord: currentLocation,
+      offerKey: new Date().getTime().toString(),
+    });
+  }
+  let markerPositions = markerItems.filter(
+    ({ cord }) => cord.latitude && cord.longitude
+  );
+  // init first point
+  ((cord: Location) => {
+    minX = cord.latitude;
+    maxX = cord.latitude;
+    minY = cord.longitude;
+    maxY = cord.longitude;
+  })(markerPositions[0].cord);
+
+  // calculate rect
+  markerPositions.map(({ cord }) => {
+    minX = Math.min(minX, cord.latitude);
+    maxX = Math.max(maxX, cord.latitude);
+    minY = Math.min(minY, cord.longitude);
+    maxY = Math.max(maxY, cord.longitude);
+  });
+
+  var midX = (minX + maxX) / 2;
+  var midY = (minY + maxY) / 2;
+  var midPoint = [midX, midY];
+
+  var deltaX = maxX - minX;
+  var deltaY = maxY - minY;
+
+  return {
+    latitude: currentLocation ? currentLocation.latitude : midX,
+    longitude: currentLocation ? currentLocation.longitude : midY,
+    latitudeDelta: deltaX + 0.1,
+    longitudeDelta: deltaY + 0.1,
+  };
 };

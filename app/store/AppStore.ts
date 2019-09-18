@@ -25,7 +25,6 @@ export default class AppStore {
         })
     }
     
-    
     @action setSearchTerm(searchStr: string) {
         this.searchTerm.set(searchStr)
     }

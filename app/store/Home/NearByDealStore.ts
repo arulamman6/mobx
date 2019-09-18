@@ -1,7 +1,7 @@
 import { observable, action, runInAction, computed, IObservableValue } from 'mobx'
 import { nearByDealService } from '../../api/nearbydeals/NearByDealsService'
 import { storeData, getNearByDeals } from '../../ulocalstorage/LocalStorage'
-import { NearByDeals } from '../../models/NearByDeal'
+import { Deal } from '../../models/Deals'
 import Location from '../../models/Locations/Location'
 import GeoPosition from '../../models/Locations/GeoPosition'
 import { getOffersWithoutOnlineStore, calculateAndApplyDistance} from '../../util/DealsUtils'
@@ -11,7 +11,7 @@ export default class NearByDealStore {
     @observable isLoading: boolean = true
     @observable isFailure: boolean = false
     @observable searchTerm: IObservableValue<string> = observable.box("")
-    @observable nearByDeal: NearByDeals = []
+    @observable nearByDeal: Deal = []
 
     constructor() {
         this.searchTerm.observe(() => {
@@ -43,7 +43,7 @@ export default class NearByDealStore {
     }
 
 
-    getNearByDealsOrderByNameWithLocation = async (nearByDealList: NearByDeals) => {
+    getNearByDealsOrderByNameWithLocation = async (nearByDealList: Deal) => {
         let postion: GeoPosition = {
             coords: DEFAULT_CORDS,
             timestamp: new Date()
@@ -62,7 +62,7 @@ export default class NearByDealStore {
         );
       
         //Remove invalid Items
-        const sortedOffersWithoutOnlineStore : NearByDeals = offerlistWithDistance.sort(
+        const sortedOffersWithoutOnlineStore : Deal = offerlistWithDistance.sort(
           (a, b) => a.distance - b.distance
         );
         return { sortedOffersWithoutOnlineStore, completeOfferList: nearByDealList };

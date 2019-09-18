@@ -1,11 +1,11 @@
 
 import CommonModel from "./CommonModel"
 
-export declare type NearByDeals = NearByDeal[]
+export declare type Deal = Deals[]
 
-export declare type UNearByDeal = NearByDeal | undefined
+export declare type UDeal = Deals | undefined
 
-export default interface NearByDeal extends CommonModel {
+export default interface Deals extends CommonModel {
     onDealTitle: string
     onAreaName: string
     onOfferName: string

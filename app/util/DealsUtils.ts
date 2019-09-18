@@ -1,4 +1,4 @@
-import NearByDeals from '../models/NearByDeal'
+import NearByDeals from '../models/Deals'
 import Location from '../models/Locations/Location'
 import {getDistance} from './LocationUtil'
 export const getOffersWithoutOnlineStore = (
@@ -32,7 +32,7 @@ export const getOffersWithoutOnlineStore = (
   };
 
   
-  
+ 
   
 
   

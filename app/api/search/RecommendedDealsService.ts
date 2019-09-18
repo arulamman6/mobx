@@ -1,17 +1,17 @@
-import CommonService from './../CommonService'
+import CommonService from '../CommonService'
 import Deals from '../../models/Deals'
 
-import { apiHost, nearByDeals } from '../../util/ServerConfig'
+import { apiHost, recommendedDeals } from '../../util/ServerConfig'
 
-class NearByDealService extends CommonService<Deals> {
+class RecommendedDealsService extends CommonService<Deals> {
     constructor() {
         super()
         this.rootURL = apiHost 
     }
  
-    async getNearByDealsData(search: String): Promise<Deals[]> {
+    async getRecommendedDealsData(): Promise<Deals[]> {
         try {
-            const response = await fetch(this.rootURL + nearByDeals)
+            const response = await fetch(this.rootURL + recommendedDeals)
             if (!response.ok) {
                 throw new Error("cannot get data")
             }
@@ -20,7 +20,7 @@ class NearByDealService extends CommonService<Deals> {
                 contentListMap: { OFFERS },
             } = responseJson;
             console.log('response'+ OFFERS)
-            return OFFERS.AllOffers;
+            return OFFERS.RecommendedOffers;
         }
         catch (error) {
             throw error
@@ -28,4 +28,5 @@ class NearByDealService extends CommonService<Deals> {
     }
 }
 
-export const nearByDealService = new NearByDealService() 
+
+export const recommendedSearchService = new RecommendedDealsService() 
